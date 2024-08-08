@@ -1,15 +1,21 @@
-import React, { useState } from "react";
-import { Navigate, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Navigate, Link, useNavigate } from "react-router-dom";
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "../firebase/auth";
 import { useAuth } from "../contexts/authContext";
 
 const SignIn = () => {
   const { userLoggedIn } = useAuth();
-
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    if (userLoggedIn) {
+      navigate("/home", { replace: true });
+    }
+  }, [userLoggedIn, navigate]);
 
   const onSubmit = async (e) => {
     e.preventDefault();

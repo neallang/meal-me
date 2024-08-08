@@ -1,13 +1,15 @@
 import React from "react";
 import { doSignOut } from "../firebase/auth";
 import { useAuth } from "../contexts/authContext";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const { currentUser, userLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   const handleSignOut = async () => {
     await doSignOut();
+    navigate("/signin", { replace: true });
   };
 
   if (!userLoggedIn) {

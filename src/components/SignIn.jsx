@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { doSignInWithEmailAndPassword } from "../firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase/firebase";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -14,8 +16,20 @@ const SignIn = () => {
     setErrorMessage("");
     setIsSigningIn(true);
     try {
-      await doSignInWithEmailAndPassword(email, password);
-      alert("Sign-In Successful");
+      const userCredential = await doSignInWithEmailAndPassword(email, password);
+      
+      // Check the isFirstTimeUser flag
+      const userDoc = await getDoc(doc(db, "users", userCredential.user.uid));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        if (userData.isFirstTimeUser) {
+          alert("Welcome to your first login!");
+          await updateDoc(doc(db, "users", userCredential.user.uid), {
+            isFirstTimeUser: false,
+          });
+        }
+      }
+
       navigate("/home"); // Redirect to home or another page after sign-in
     } catch (error) {
       console.error("Sign-in error:", error.message);

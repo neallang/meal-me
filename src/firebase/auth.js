@@ -16,6 +16,7 @@ import {
     await setDoc(doc(db, "users", userCredential.user.uid), {
       email: userCredential.user.email,
       createdAt: new Date(),
+      isFirstTimeUser: true,
     });
     return userCredential;
   };

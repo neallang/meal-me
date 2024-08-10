@@ -1,51 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { Navigate, Link, useNavigate } from "react-router-dom";
-import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "../firebase/auth";
-import { useAuth } from "../contexts/authContext";
+import React, { useState } from "react";
+import { doSignInWithEmailAndPassword } from "../firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
-  const { userLoggedIn } = useAuth();
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
-  useEffect(() => {
-    if (userLoggedIn) {
-      navigate("/home", { replace: true });
-    }
-  }, [userLoggedIn, navigate]);
+  const [isSigningIn, setIsSigningIn] = useState(false);
+  const navigate = useNavigate();
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (!isSigningIn) {
-      setIsSigningIn(true);
-      try {
-        await doSignInWithEmailAndPassword(email, password);
-      } catch (error) {
-        setErrorMessage(error.message);
-        setIsSigningIn(false);
-      }
+    setErrorMessage("");
+    setIsSigningIn(true);
+    try {
+      await doSignInWithEmailAndPassword(email, password);
+      alert("Sign-In Successful");
+      navigate("/home"); // Redirect to home or another page after sign-in
+    } catch (error) {
+      console.error("Sign-in error:", error.message);
+      setErrorMessage(error.message);
+      setIsSigningIn(false);
     }
   };
-
-  const onGoogleSignIn = async (e) => {
-    e.preventDefault();
-    if (!isSigningIn) {
-      setIsSigningIn(true);
-      try {
-        await doSignInWithGoogle();
-      } catch (error) {
-        setErrorMessage(error.message);
-        setIsSigningIn(false);
-      }
-    }
-  };
-
-  if (userLoggedIn) {
-    return <Navigate to="/home" />;
-  }
 
   return (
     <div>
@@ -70,12 +47,6 @@ const SignIn = () => {
           Sign In
         </button>
       </form>
-      <button onClick={onGoogleSignIn} disabled={isSigningIn}>
-        Sign In with Google
-      </button>
-      <p>
-        Don't have an account? <Link to="/signup">Sign Up</Link>
-      </p>
     </div>
   );
 };

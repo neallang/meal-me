@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { doCreateUserWithEmailAndPassword, doSendEmailVerification } from "../firebase/auth";
-import { useNavigate, Link } from "react-router-dom";
+import { doCreateUserWithEmailAndPassword } from "../firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -12,15 +12,15 @@ const SignUp = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
-    if (!isSigningUp) {
-      setIsSigningUp(true);
-      try {
-        await doCreateUserWithEmailAndPassword(email, password);
-        navigate("/signin");
-      } catch (error) {
-        setErrorMessage(error.message);
-        setIsSigningUp(false);
-      }
+    setIsSigningUp(true);
+    try {
+      await doCreateUserWithEmailAndPassword(email, password);
+      alert("Sign-Up Successful");
+      navigate("/signin");
+    } catch (error) {
+      console.error("Sign-up error:", error.message);
+      setErrorMessage(error.message);
+      setIsSigningUp(false);
     }
   };
 
@@ -47,11 +47,6 @@ const SignUp = () => {
           Sign Up
         </button>
       </form>
-
-      <p>
-        Already have an account? <Link to="/signin">Sign In</Link>
-      </p>
-      
     </div>
   );
 };

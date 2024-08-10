@@ -7,10 +7,17 @@ import {
     updatePassword,
     GoogleAuthProvider,
   } from "firebase/auth";
-  import { auth } from "./firebase";
+  import { auth, db } from "./firebase";
+  import { doc, setDoc } from "firebase/firestore";
   
   export const doCreateUserWithEmailAndPassword = async (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    // Add user data to Firestore
+    await setDoc(doc(db, "users", userCredential.user.uid), {
+      email: userCredential.user.email,
+      createdAt: new Date(),
+    });
+    return userCredential;
   };
   
   export const doSignInWithEmailAndPassword = async (email, password) => {

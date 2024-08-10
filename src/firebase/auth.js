@@ -8,11 +8,11 @@ import {
     GoogleAuthProvider,
   } from "firebase/auth";
   import { auth, db } from "./firebase";
-  import { doc, setDoc } from "firebase/firestore";
+  import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
   
   export const doCreateUserWithEmailAndPassword = async (email, password) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    // Add user data to Firestore
+    // Add user data to Firestore - set first time flag to true
     await setDoc(doc(db, "users", userCredential.user.uid), {
       email: userCredential.user.email,
       createdAt: new Date(),
@@ -48,4 +48,13 @@ import {
       url: `${window.location.origin}/home`,
     });
   };
+
+  export const getUserData = async (userID) => {
+    const userDoc = await getDoc(doc(db, "users", userID));
+    return userDoc.exists() ? userDoc.data() : null;
+  }
+
+  export const updateUserData = async (userID, data) => {
+    await updateDoc(doc(db, "users", userID), data);
+  }
   

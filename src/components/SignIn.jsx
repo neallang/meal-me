@@ -20,11 +20,14 @@ const SignIn = () => {
 
       if (userData && userData.isFirstTimeUser) {
           alert("Welcome to your first login!");
+          navigate("/form");
 
           await updateUserData(userCredential.user.uid, { isFirstTimeUser: false });
       }
-
-      navigate("/home");
+      else {
+        alert("Welcome back!");
+        navigate("/home");
+      }
     } catch (error) {
       console.error("Sign-in error:", error.message);
       setErrorMessage(error.message);

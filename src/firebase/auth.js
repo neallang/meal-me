@@ -57,4 +57,24 @@ import {
   export const updateUserData = async (userID, data) => {
     await updateDoc(doc(db, "users", userID), data);
   }
+
+  export const saveFormData = async (userID, formData) => {
+    try {
+      await setDoc(doc(db, "users", userID), { formData }, {merge: true});
+    } catch (error) {
+      console.error("Error saving form data: ", error);
+    }
+  }
+
+  export const getFormData = async (userID) => {
+    try {
+      const docRef = doc(db, "users", userID);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        return docSnap.data().formData;
+      }
+    } catch (error) {
+      console.error("Error fetching form data: ", error);
+    }
+  }
   

@@ -33,17 +33,6 @@ const InformationForm = ({ formData, setFormData }) => {
                 required
             />
 
-            <label htmlFor="emailAddress">Email Address</label>
-            <input 
-                id="emailAddress"
-                type="text"
-                name="emailAddress"
-                placeholder="john@example.com"
-                value={formData.emailAddress}
-                onChange={handleChange}
-                required
-            />
-
             <label htmlFor="age">Age</label>
             <input 
                 id="age"

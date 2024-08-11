@@ -1,10 +1,13 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
+import { saveFormData } from "../../firebase/auth";
 
-const GoalForm = ({ formData, setFormData }) => {
+const GoalForm = ({ formData, setFormData, userID }) => {
     const navigate = useNavigate();
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        await saveFormData(userID, formData)
         navigate('/home');
     }
 

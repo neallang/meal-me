@@ -1,6 +1,8 @@
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom";
 
 const InformationForm = ({ formData, setFormData }) => {
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const value = e.target.type === 'number' ? parseInt(e.target.value, 10) : e.target.value;
@@ -12,7 +14,7 @@ const InformationForm = ({ formData, setFormData }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
+        navigate("/form/part2")
     }
 
 
@@ -90,19 +92,40 @@ const InformationForm = ({ formData, setFormData }) => {
             <label htmlFor="weight">lbs.</label>
 
             <div>
-                <label htmlFor="sex">Sex</label>
-                <select 
-                    id="sex"
-                    name="sex"
-                    value={formData.sex}
-                    onChange={handleChange}
-                    required
-                >
-                    <option value="">Select</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                </select>
+                <label>Sex:</label>
+                <label>
+                    <input 
+                    type="radio" 
+                    name="sex" 
+                    value="male" 
+                    checked={formData.sex === 'male'} 
+                    onChange={handleChange} 
+                    required 
+                    />
+                    Male
+                </label>
+                <label>
+                    <input 
+                    type="radio" 
+                    name="sex" 
+                    value="female" 
+                    checked={formData.sex === 'female'} 
+                    onChange={handleChange} 
+                    required 
+                    />
+                    Female
+                </label>
+                <label>
+                    <input 
+                    type="radio" 
+                    name="sex" 
+                    value="other" 
+                    checked={formData.sex === 'other'} 
+                    onChange={handleChange} 
+                    required 
+                    />
+                    Other
+                </label>
             </div>
             <button type="submit">Next</button>
 

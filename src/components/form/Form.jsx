@@ -1,21 +1,33 @@
 import React, {useState} from "react"
 import InformationForm from "./InformationForm";
+import ActivityForm from "./ActivityForm"
+import GoalForm from "./GoalForm";
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 
 const Form = () => {
-    const  [form1Data, setForm1Data] = useState({
+    const  [formData, setFormData] = useState({
         firstName: '',
         emailAddress: '',
-        age: 0,
-        heightFt: 0,
-        heightIn: 0,
-        weight: 0,
+        age: null,
+        heightFt: null,
+        heightIn: null,
+        weight: null,
         sex: '',
+        activity: '',
+        goal: '',
     });
 
+    console.log(formData)
+
+
+
     return (
-        <div>
-            <InformationForm formData={form1Data} setFormData={setForm1Data}></InformationForm>
-        </div>
+        <Routes>
+            <Route path="*" element={<Navigate to="/form/part1" />} />
+            <Route path="/part1" element={<InformationForm formData={formData} setFormData={setFormData} />} />
+            <Route path="/part2" element={<ActivityForm formData={formData} setFormData={setFormData} />} />
+            <Route path="/part3" element={<GoalForm formData={formData} setFormData={setFormData} />} />
+        </Routes>
     )
 }
 export default Form;

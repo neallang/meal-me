@@ -5,6 +5,8 @@ import SignIn from "./components/SignIn";
 import Home from "./components/Home";
 import Form from "./components/form/Form";
 import InformationForm from "./components/form/InformationForm";
+import ActivityForm from "./components/form/ActivityForm"
+import GoalForm from "./components/form/GoalForm";
 import { AuthProvider } from "./contexts/authContext";
 
 const App = () => {
@@ -15,7 +17,7 @@ const App = () => {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/home" element={<Home />} />
-          <Route path="form" element={<Form />} />
+          <Route path="/form/*" element={<Form />} />
           <Route path="/" element={<Navigate to="/signin" />} />
         </Routes>
       </AuthProvider>

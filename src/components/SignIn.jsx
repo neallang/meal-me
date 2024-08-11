@@ -54,6 +54,8 @@ const SignIn = () => {
         <button type="submit" disabled={isSigningIn}>
           Sign In
         </button>
+        <p>Don't have an account?</p>
+        <a href="signup">Sign up here</a>
       </form>
     </div>
   );

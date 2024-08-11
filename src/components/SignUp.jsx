@@ -46,6 +46,8 @@ const SignUp = () => {
         <button type="submit" disabled={isSigningUp}>
           Sign Up
         </button>
+        <p>Already have an account?</p>
+        <a href="signin">Sign in here</a>
       </form>
     </div>
   );

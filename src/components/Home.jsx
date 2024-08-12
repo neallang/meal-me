@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase/firebase"
 import { calculateCaloricNeeds } from "../utils/calories";
 import {getFormattedDate} from '../utils/date'
+import Recipe from "./Recipe";
+import './home.css'
 
 const Home = () => {
   const { currentUser, userLoggedIn } = useAuth();
@@ -37,18 +39,30 @@ const Home = () => {
 
   const handleSignOut = async () => {
     await doSignOut();
-    navigate("/signin", { replace: true });
+    navigate("/", { replace: true });
   };
 
   if (!userLoggedIn) {
-    return <Navigate to="/signin" />;
+    return <Navigate to="/" />;
   }
 
   return (
-    <div>
-      <h1>Recipes for {getFormattedDate()}</h1>
-      {<p>Daily caloric need: {caloriesPerDay}</p>}
-      <button onClick={handleSignOut}>Sign Out</button>
+    <div id="home">
+      <div className="top-row">
+        <img src="../public/menu.png" />
+        <h1>Recipes for {getFormattedDate()}</h1>
+        <button onClick={handleSignOut}>Sign Out</button>
+      </div>
+      <p>Daily caloric need: {caloriesPerDay}</p>
+
+      <div className="meal-buttons">
+        <button>Breakfast</button>
+        <button>Lunch</button>
+        <button>Dinner</button>
+      </div>
+
+      <Recipe />
+      
     </div>
   );
 };

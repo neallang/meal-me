@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom";
+import './forms.css'
 
 const InformationForm = ({ formData, setFormData }) => {
     const navigate = useNavigate();
@@ -20,103 +21,119 @@ const InformationForm = ({ formData, setFormData }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <h2>Enter Personal Information Here</h2>
+            <h2>Who Are You?</h2>
+            <p>Help us tailor recipes toward your goals by entering some personal information.</p>
 
-            <label htmlFor="firstName">First Name</label>
-            <input 
-                id="firstName"
-                type="text"
-                name="firstName"
-                placeholder="John"
-                value={formData.firstName}
-                onChange={handleChange}
-                required
-            />
 
-            <label htmlFor="age">Age</label>
-            <input 
-                id="age"
-                type="number"
-                name="age"
-                placeholder="25"
-                value={formData.age}
-                onChange={handleChange}
-                required
-            />
-            <label htmlFor="age">years</label>
-
-            <label htmlFor="heightFt">Height</label>
-            <input 
-                id="heightFt"
-                type="number"
-                name="heightFt"
-                placeholder="5"
-                value={formData.heightFt}
-                onChange={handleChange}
-                required
-            />
-            <label htmlFor="heightFt">ft.</label>
-
-            <input 
-                id="heightIn"
-                type="number"
-                name="heightIn"
-                placeholder="7"
-                value={formData.heightIn}
-                onChange={handleChange}
-                required
-            />
-            <label htmlFor="heightIn">in.</label>
-
-            <label htmlFor="weight">Weight</label>
-            <input 
-                id="weight"
-                type="number"
-                name="weight"
-                placeholder="165"
-                value={formData.weight}
-                onChange={handleChange}
-                required
-            />
-            <label htmlFor="weight">lbs.</label>
-
-            <div>
-                <label>Sex:</label>
-                <label>
+            <div className="form-content">
+                <div className="form-el">
+                    <label htmlFor="firstName">First Name</label>
                     <input 
-                    type="radio" 
-                    name="sex" 
-                    value="male" 
-                    checked={formData.sex === 'male'} 
-                    onChange={handleChange} 
-                    required 
+                        id="firstName"
+                        className="input-el"
+                        type="text"
+                        name="firstName"
+                        placeholder="John"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        required
                     />
-                    Male
-                </label>
-                <label>
+                </div>
+
+                <div className="form-el">
+                    <label htmlFor="age">Age</label>
                     <input 
-                    type="radio" 
-                    name="sex" 
-                    value="female" 
-                    checked={formData.sex === 'female'} 
-                    onChange={handleChange} 
-                    required 
+                        id="age"
+                        className="input-el"
+                        type="number"
+                        name="age"
+                        placeholder="25"
+                        value={formData.age}
+                        onChange={handleChange}
+                        required
                     />
-                    Female
-                </label>
-                <label>
+                    <label htmlFor="age">years</label>
+                </div>
+
+                <div className="form-el">                
+                    <label htmlFor="heightFt">Height</label>
+                    <div className="form-height">
+                        <input 
+                            id="heightFt"
+                            type="number"
+                            name="heightFt"
+                            placeholder="5"
+                            value={formData.heightFt}
+                            onChange={handleChange}
+                            required
+                        />
+                        <label htmlFor="heightFt">ft.</label>
+                        <input 
+                            id="heightIn"
+                            type="number"
+                            name="heightIn"
+                            placeholder="7"
+                            value={formData.heightIn}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <label htmlFor="heightIn">in.</label>
+                </div>
+
+                <div className="form-el">
+                    <label htmlFor="weight">Weight</label>
                     <input 
-                    type="radio" 
-                    name="sex" 
-                    value="other" 
-                    checked={formData.sex === 'other'} 
-                    onChange={handleChange} 
-                    required 
+                        id="weight"
+                        className="input-el"
+                        type="number"
+                        name="weight"
+                        placeholder="165"
+                        value={formData.weight}
+                        onChange={handleChange}
+                        required
                     />
-                    Other
-                </label>
+                    <label htmlFor="weight">lbs.</label>
+                </div>
+
+                <div className="form-sex">
+                    <label>Sex:</label>
+                    <label>
+                        <input 
+                        type="radio" 
+                        name="sex" 
+                        value="male" 
+                        checked={formData.sex === 'male'} 
+                        onChange={handleChange} 
+                        required 
+                        />
+                        Male
+                    </label>
+                    <label>
+                        <input 
+                        type="radio" 
+                        name="sex" 
+                        value="female" 
+                        checked={formData.sex === 'female'} 
+                        onChange={handleChange} 
+                        required 
+                        />
+                        Female
+                    </label>
+                    <label>
+                        <input 
+                        type="radio" 
+                        name="sex" 
+                        value="other" 
+                        checked={formData.sex === 'other'} 
+                        onChange={handleChange} 
+                        required 
+                        />
+                        Other
+                    </label>
+                </div>
+                <button type="submit">Next</button>
             </div>
-            <button type="submit">Next</button>
 
         </form>
     )

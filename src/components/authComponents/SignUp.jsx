@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { doCreateUserWithEmailAndPassword } from "../../firebase/auth";
 import { useNavigate } from "react-router-dom";
+import './sign-in.css'
 
-const SignUp = () => {
+const SignUp = ({ toggleAuthMode }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -25,30 +26,34 @@ const SignUp = () => {
   };
 
   return (
-    <div>
+    <div id="sign-in">
       <h1>Sign Up</h1>
       {errorMessage && <p>{errorMessage}</p>}
-      <form onSubmit={onSubmit}>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-        />
-        <button type="submit" disabled={isSigningUp}>
-          Sign Up
-        </button>
-        <p>Already have an account?</p>
-        <a href="/">Sign in here</a>
+      <form className="form-content" onSubmit={onSubmit}>
+        <div className="form-el">
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            required
+          />
+        </div>
+        <div className="form-el">
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            required
+          />
+        </div>
+        <div className="form-el">
+          <button type="submit" disabled={isSigningUp}>Sign Up</button>
+        </div>
       </form>
+      <p>Already have an account?</p>
+      <a onClick={toggleAuthMode}>Sign in here </a>
     </div>
   );
 };

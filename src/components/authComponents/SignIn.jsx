@@ -3,7 +3,7 @@ import { doSignInWithEmailAndPassword, getUserData, updateUserData } from "../..
 import { useNavigate } from "react-router-dom";
 import './sign-in.css';
 
-const SignIn = () => {
+const SignIn = ({ toggleAuthMode }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -68,7 +68,7 @@ const SignIn = () => {
         </div>
       </form>
       <p>Don't have an account?</p>
-      <a href="signup">Sign up here</a>
+      <a onClick={toggleAuthMode}>Sign up here</a>
     </div>
   );
 };

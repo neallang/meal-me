@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom";
-import './forms.css'
+import './information-form.css'
 
 const InformationForm = ({ formData, setFormData }) => {
     const navigate = useNavigate();
@@ -20,7 +20,7 @@ const InformationForm = ({ formData, setFormData }) => {
 
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form id="information-form" onSubmit={handleSubmit}>
             <h2>Who Are You?</h2>
             <p>Help us tailor recipes toward your goals by entering some personal information.</p>
 
@@ -96,41 +96,43 @@ const InformationForm = ({ formData, setFormData }) => {
                     <label htmlFor="weight">lbs.</label>
                 </div>
 
-                <div className="form-sex">
-                    <label>Sex:</label>
-                    <label>
-                        <input 
-                        type="radio" 
-                        name="sex" 
-                        value="male" 
-                        checked={formData.sex === 'male'} 
-                        onChange={handleChange} 
-                        required 
-                        />
-                        Male
-                    </label>
-                    <label>
-                        <input 
-                        type="radio" 
-                        name="sex" 
-                        value="female" 
-                        checked={formData.sex === 'female'} 
-                        onChange={handleChange} 
-                        required 
-                        />
-                        Female
-                    </label>
-                    <label>
-                        <input 
-                        type="radio" 
-                        name="sex" 
-                        value="other" 
-                        checked={formData.sex === 'other'} 
-                        onChange={handleChange} 
-                        required 
-                        />
-                        Other
-                    </label>
+                <div className="form-el">
+                <label>Sex:</label>
+                    <div className="form-sex">
+                        <label>
+                            <input 
+                            type="radio" 
+                            name="sex" 
+                            value="male" 
+                            checked={formData.sex === 'male'} 
+                            onChange={handleChange} 
+                            required 
+                            />
+                            Male
+                        </label>
+                        <label>
+                            <input 
+                            type="radio" 
+                            name="sex" 
+                            value="female" 
+                            checked={formData.sex === 'female'} 
+                            onChange={handleChange} 
+                            required 
+                            />
+                            Female
+                        </label>
+                        <label>
+                            <input 
+                            type="radio" 
+                            name="sex" 
+                            value="other" 
+                            checked={formData.sex === 'other'} 
+                            onChange={handleChange} 
+                            required 
+                            />
+                            Other
+                        </label>
+                    </div>
                 </div>
                 <button type="submit">Next</button>
             </div>

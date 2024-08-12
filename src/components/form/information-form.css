@@ -1,4 +1,4 @@
-form {
+#information-form {
     margin: auto;
     padding: 20px;
     display: flex;
@@ -9,29 +9,39 @@ form {
     gap: 20px;
 }
 
-.form-content {
+#information-form .form-content {
     margin-top: 10vh;
     align-self: flex-start;
-    
 }
 
-.form-el {
+#information-form .form-el {
     display: grid;
     grid-template-columns: 2fr 2fr 2fr;
     gap: 10px;
     margin-bottom: 20px;
 }
 
-.form-height {
+#information-form .form-height {
     display: flex;
     justify-content: space-between;
 }
 
- .form-height input {
+#information-form .form-height input {
     width: 40px;
+}
 
- }
-
- .input-el {
+#information-form .input-el {
     width: 125px;
- }
+}
+
+#information-form .form-sex {
+    display: flex;
+    gap: 10px;
+}
+
+#information-form .form-sex label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}

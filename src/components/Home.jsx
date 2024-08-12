@@ -4,12 +4,14 @@ import { useAuth } from "../contexts/authContext";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase/firebase"
 import { calculateCaloricNeeds } from "../utils/calories";
+import {getFormattedDate} from '../utils/date'
 
 const Home = () => {
   const { currentUser, userLoggedIn } = useAuth();
   const navigate = useNavigate();
   const [userID, setUserID] = useState(null);
   const [caloriesPerDay, setCaloriesPerDay] = useState(null);
+  const [firstName, setFirstName] = useState(null);
 
     useEffect(() => {
         const user= auth.currentUser;
@@ -25,7 +27,7 @@ const Home = () => {
           if (formData) {
             const calories = calculateCaloricNeeds(formData.weight, formData.heightIn, formData.heightFt, formData.age, formData.sex, formData.activity, formData.goal);
             setCaloriesPerDay(calories);
-            console.log(calories);
+            setFirstName(formData.firstName);
           }
         }
       };
@@ -35,16 +37,16 @@ const Home = () => {
 
   const handleSignOut = async () => {
     await doSignOut();
-    navigate("/", { replace: true });
+    navigate("/signin", { replace: true });
   };
 
   if (!userLoggedIn) {
-    return <Navigate to="/" />;
+    return <Navigate to="/signin" />;
   }
 
   return (
     <div>
-      <h1>Welcome, {currentUser.email}</h1>
+      <h1>Recipes for {getFormattedDate()}</h1>
       {<p>Daily caloric need: {caloriesPerDay}</p>}
       <button onClick={handleSignOut}>Sign Out</button>
     </div>

@@ -1,0 +1,36 @@
+#sign-in {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid #000; 
+    border-radius: 5px;
+    width: 40%;
+    margin: 0 auto; /* Center horizontally */
+    padding: 25px 0;
+}
+
+#sign-in .form-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#sign-in .form-el {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+#sign-in input[type=email], #sign-in input[type=password] {
+    height: 40px;
+    width: 250px;
+}
+
+#sign-in button {
+    height: 40px;
+    width: 250px;
+}

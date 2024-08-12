@@ -35,11 +35,11 @@ const Home = () => {
 
   const handleSignOut = async () => {
     await doSignOut();
-    navigate("/signin", { replace: true });
+    navigate("/", { replace: true });
   };
 
   if (!userLoggedIn) {
-    return <Navigate to="/signin" />;
+    return <Navigate to="/" />;
   }
 
   return (

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { doCreateUserWithEmailAndPassword } from "../firebase/auth";
+import { doCreateUserWithEmailAndPassword } from "../../firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
@@ -47,7 +47,7 @@ const SignUp = () => {
           Sign Up
         </button>
         <p>Already have an account?</p>
-        <a href="signin">Sign in here</a>
+        <a href="/">Sign in here</a>
       </form>
     </div>
   );

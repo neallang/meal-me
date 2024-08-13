@@ -40,9 +40,9 @@ const Home = () => {
     useEffect(() => {
       const fetchRecipeData = async () => {
         if (caloriesPerDay) {
-          const calorieString = caloriesPerDay.toString();
-          const recipe = await getRecipes(calorieString);
-          console.log(recipe);
+          // const calorieString = caloriesPerDay.toString();
+          const recipes = await getRecipes(caloriesPerDay);
+          console.log(recipes);
         }
       };
     

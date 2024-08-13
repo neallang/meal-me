@@ -17,7 +17,7 @@ const SignUp = ({ toggleAuthMode }) => {
     try {
       await doCreateUserWithEmailAndPassword(email, password);
       alert("Sign-Up Successful");
-      navigate("/signin");
+      navigate("/");
     } catch (error) {
       console.error("Sign-up error:", error.message);
       setErrorMessage(error.message);

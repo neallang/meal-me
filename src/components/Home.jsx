@@ -6,6 +6,7 @@ import { auth } from "../firebase/firebase"
 import { calculateCaloricNeeds } from "../utils/calories";
 import {getFormattedDate} from '../utils/date'
 import Recipe from "./Recipe";
+import { getRecipes } from "../utils/fetchRecipes"; 
 import './home.css'
 
 const Home = () => {
@@ -36,6 +37,18 @@ const Home = () => {
       fetchData();
     }, [userID]);
 
+    useEffect(() => {
+      const fetchRecipeData = async () => {
+        if (caloriesPerDay) {
+          const calorieString = caloriesPerDay.toString();
+          const recipe = await getRecipes(calorieString);
+          console.log(recipe);
+        }
+      };
+    
+      fetchRecipeData();
+    }, [caloriesPerDay]);
+
 
   const handleSignOut = async () => {
     await doSignOut();
@@ -45,6 +58,8 @@ const Home = () => {
   if (!userLoggedIn) {
     return <Navigate to="/" />;
   }
+
+
 
   return (
     <div id="home">

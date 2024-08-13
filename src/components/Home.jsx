@@ -49,7 +49,7 @@ const Home = () => {
   return (
     <div id="home">
       <div className="top-row">
-        <img src="../public/menu.png" />
+        <img src="../menu.png" />
         <h1>Recipes for {getFormattedDate()}</h1>
         <button onClick={handleSignOut}>Sign Out</button>
       </div>

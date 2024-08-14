@@ -6,7 +6,7 @@ import { auth } from "../firebase/firebase"
 import { calculateCaloricNeeds } from "../utils/calories";
 import {getFormattedDate} from '../utils/date'
 import Recipe from "./Recipe";
-import { getRecipes } from "../utils/fetchRecipes"; 
+import { getMealPlan } from "../utils/fetchRecipes"; 
 import './home.css'
 
 const Home = () => {
@@ -15,6 +15,9 @@ const Home = () => {
   const [userID, setUserID] = useState(null);
   const [caloriesPerDay, setCaloriesPerDay] = useState(null);
   const [firstName, setFirstName] = useState(null);
+  const [ recipe1, setRecipe1] = useState(null);
+  const [ recipe2, setRecipe2] = useState(null);
+  const [ recipe3, setRecipe3] = useState(null);
 
     useEffect(() => {
         const user= auth.currentUser;
@@ -41,8 +44,15 @@ const Home = () => {
       const fetchRecipeData = async () => {
         if (caloriesPerDay) {
           // const calorieString = caloriesPerDay.toString();
-          const recipes = await getRecipes(caloriesPerDay);
+          const recipes = await getMealPlan(caloriesPerDay);
           console.log(recipes);
+          const recipe1URL = recipes[0].url
+          setRecipe1(recipe1URL)
+          const recipe2URL = recipes[1].url
+          setRecipe2(recipe2URL);
+          const recipe3URL = recipes[2].url
+          setRecipe3(recipe3URL);
+          
         }
       };
     
@@ -75,6 +85,10 @@ const Home = () => {
         <button>Lunch</button>
         <button>Dinner</button>
       </div>
+
+      <a href={recipe1} target="_blank">Recipe 1</a>
+      <a href={recipe2} target="_blank">Recipe 2</a>
+      <a href={recipe3} target="_blank">Recipe 3</a>
 
       <Recipe />
       

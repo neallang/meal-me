@@ -75,10 +75,6 @@ const filterRecipes = (recipes) => {
 
     selectedMeals.lunch = meals.lunchAndDinner[lunchIndex];
     selectedMeals.dinner = meals.lunchAndDinner[dinnerIndex];
-  } else if (meals.lunchAndDinner.length === 1) {
-    // If there's only one option, use it for lunch or dinner
-    selectedMeals.lunch = meals.lunchAndDinner[0];
-    selectedMeals.dinner = meals.lunchAndDinner[0];
   }
 
   return Object.values(selectedMeals).filter(meal => meal !== null);

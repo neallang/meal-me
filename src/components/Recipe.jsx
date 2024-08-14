@@ -1,10 +1,15 @@
 import './recipe.css'
 
-const Recipe = () => {
+const Recipe = ({recipe, currentMeal}) => {
+
+    console.log(recipe)
+
 
     return (
         <div id="recipe">
-            <h1>Recipe</h1>
+            <h1>{currentMeal}</h1>
+            <h2>{recipe.label}</h2>
+            <a href={recipe.url} target='_blank'>recipe</a>
         </div>
     )
 

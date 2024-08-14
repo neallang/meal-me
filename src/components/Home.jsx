@@ -15,9 +15,9 @@ const Home = () => {
   const [userID, setUserID] = useState(null);
   const [caloriesPerDay, setCaloriesPerDay] = useState(null);
   const [firstName, setFirstName] = useState(null);
-  const [ recipe1, setRecipe1] = useState(null);
-  const [ recipe2, setRecipe2] = useState(null);
-  const [ recipe3, setRecipe3] = useState(null);
+  const [dailyRecipes, setDailyRecipes] = useState(null);
+  const [currentMeal, setCurrentMeal] = useState(null);
+  const [currentRecipe, setCurrentRecipe] = useState(null);
 
     useEffect(() => {
         const user= auth.currentUser;
@@ -45,14 +45,9 @@ const Home = () => {
         if (caloriesPerDay) {
           // const calorieString = caloriesPerDay.toString();
           const recipes = await getMealPlan(caloriesPerDay);
-          console.log(recipes);
-          const recipe1URL = recipes[0].url
-          setRecipe1(recipe1URL)
-          const recipe2URL = recipes[1].url
-          setRecipe2(recipe2URL);
-          const recipe3URL = recipes[2].url
-          setRecipe3(recipe3URL);
-          
+          setDailyRecipes(recipes);
+          setCurrentRecipe(recipes[0]);
+          setCurrentMeal('Breakfast');
         }
       };
     
@@ -60,15 +55,40 @@ const Home = () => {
     }, [caloriesPerDay]);
 
 
+
   const handleSignOut = async () => {
     await doSignOut();
     navigate("/", { replace: true });
+  };
+
+  const handleRecipeChange = (mealType) => {
+    if (dailyRecipes) {
+      switch (mealType) {
+        case 'breakfast':
+          setCurrentRecipe(dailyRecipes[0]);
+          setCurrentMeal('Breakfast');
+          break;
+        case 'lunch':
+          setCurrentRecipe(dailyRecipes[1]);
+          setCurrentMeal('Lunch');
+          break;
+        case 'dinner':
+          setCurrentRecipe(dailyRecipes[2]);
+          setCurrentMeal('Dinner');
+          break;
+        default:
+          break;
+      }
+    }
   };
 
   if (!userLoggedIn) {
     return <Navigate to="/" />;
   }
 
+  // if (currentRecipe) {
+  // console.log(currentRecipe)
+  // }
 
 
   return (
@@ -81,16 +101,12 @@ const Home = () => {
       <p>Daily caloric need: {caloriesPerDay}</p>
 
       <div className="meal-buttons">
-        <button>Breakfast</button>
-        <button>Lunch</button>
-        <button>Dinner</button>
+        <button onClick={() => handleRecipeChange('breakfast')}>Breakfast</button>
+        <button onClick={() => handleRecipeChange('lunch')}>Lunch</button>
+        <button onClick={() => handleRecipeChange('dinner')}>Dinner</button>
       </div>
 
-      <a href={recipe1} target="_blank">Recipe 1</a>
-      <a href={recipe2} target="_blank">Recipe 2</a>
-      <a href={recipe3} target="_blank">Recipe 3</a>
-
-      <Recipe />
+      {currentRecipe && currentMeal && <Recipe recipe={currentRecipe} currentMeal={currentMeal}/>}
       
     </div>
   );

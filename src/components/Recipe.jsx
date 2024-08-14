@@ -9,6 +9,7 @@ const Recipe = ({recipe, currentMeal}) => {
         <div id="recipe">
             <h1>{currentMeal}</h1>
             <h2>{recipe.label}</h2>
+            <img src={recipe.image}/>
             <a href={recipe.url} target='_blank'>recipe</a>
         </div>
     )

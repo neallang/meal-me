@@ -55,7 +55,7 @@ const ActivityForm = ({ formData, setFormData }) => {
                     </label>
                     <div className="description">
                         <p>Light to moderate exercise</p>
-                        <p>(2-3 times per week)</p>
+                        <p>(1-3 times per week)</p>
                     </div>
                 </div>
                 <div className="form-el">

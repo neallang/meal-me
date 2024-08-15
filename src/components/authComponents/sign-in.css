@@ -38,3 +38,7 @@
 #sign-in a {
     font-weight: bold;
 }
+
+#sign-in a:hover {
+    cursor: pointer;
+}

@@ -30,3 +30,7 @@
     border: 1px solid black;
     border-radius: 5px;;
 }
+
+#home .meal-buttons button:hover {
+    cursor: pointer;
+}

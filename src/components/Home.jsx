@@ -45,8 +45,9 @@ const Home = () => {
         if (caloriesPerDay) {
           // const calorieString = caloriesPerDay.toString();
           const recipes = await getMealPlan(caloriesPerDay);
+          console.log(recipes);
           setDailyRecipes(recipes);
-          setCurrentRecipe(recipes[0]);
+          setCurrentRecipe(recipes.breakfast);
           setCurrentMeal('Breakfast');
         }
       };
@@ -65,15 +66,15 @@ const Home = () => {
     if (dailyRecipes) {
       switch (mealType) {
         case 'breakfast':
-          setCurrentRecipe(dailyRecipes[0]);
+          setCurrentRecipe(dailyRecipes.breakfast);
           setCurrentMeal('Breakfast');
           break;
         case 'lunch':
-          setCurrentRecipe(dailyRecipes[1]);
+          setCurrentRecipe(dailyRecipes.lunch);
           setCurrentMeal('Lunch');
           break;
         case 'dinner':
-          setCurrentRecipe(dailyRecipes[2]);
+          setCurrentRecipe(dailyRecipes.dinner);
           setCurrentMeal('Dinner');
           break;
         default:
@@ -87,7 +88,7 @@ const Home = () => {
   }
 
   // if (currentRecipe) {
-  // console.log(currentRecipe)
+  // console.log("Current Recipe: ", currentRecipe)
   // }
 
 

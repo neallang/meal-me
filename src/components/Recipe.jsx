@@ -2,26 +2,31 @@ import './recipe.css'
 
 const Recipe = ({recipe, currentMeal}) => {
 
-    console.log(recipe)
-    console.log(recipe.calories / 4)
-    console.log(recipe.totalDaily.PROCNT.quantity / recipe.yield)
-    console.log(recipe.totalDaily.CHOCDF.quantity / recipe.yield)
-    console.log(recipe.totalDaily.FAT.quantity / recipe.yield)
+    if (!recipe) {
+        return <div id="recipe">Loading...</div>;
+    }
+
+    const calories = recipe.nutrition?.nutrients?.[0]?.amount ? Math.round(recipe.nutrition.nutrients[0].amount) : 0;
+    const protein = recipe.nutrition?.nutrients?.[1]?.amount ? Math.round(recipe.nutrition.nutrients[1].amount) : 0;
+    const fat = recipe.nutrition?.nutrients?.[2]?.amount ? Math.round(recipe.nutrition.nutrients[2].amount) : 0;
+    const carbs = recipe.nutrition?.nutrients?.[3]?.amount ? Math.round(recipe.nutrition.nutrients[3].amount) : 0;
+
+
 
 
     return (
         <div id="recipe">
-            <h1>{recipe.label}</h1>
+            <h1>{recipe.title}</h1>
             <div className='recipe-details'>
                 <div className='nutrients'>
-                    <p>Calories: </p>
-                    <p>Protein: </p>
-                    <p>Carbohydrates: </p>
-                    <p>Fat: </p>
+                    <p>Calories: {calories}</p>
+                    <p>Protein: {protein}g</p>
+                    <p>Carbohydrates: {carbs}g</p>
+                    <p>Fat: {fat}g</p>
                 </div>
                 <img src={recipe.image}/>
             </div>
-            <a href={recipe.url} target='_blank'>View Full Recipe</a>
+             <a target='_blank'>View Full Recipe</a> 
         </div>
     )
 

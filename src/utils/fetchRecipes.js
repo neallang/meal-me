@@ -1,81 +1,87 @@
 import axios from 'axios';
 
-export const getMealPlan = async (caloriesPerDay) => {
-  const appId = import.meta.env.VITE_EDAMAM_ID;
-  const appKey = import.meta.env.VITE_EDAMAM_KEY;
-  const mealCalories = Math.round(caloriesPerDay / 3);
-  const caloriesRange = `${mealCalories - 100}-${mealCalories + 100}`;
-  const totalCalls = 4; 
-  const resultsPerCall = 20; 
+// Calling the spoonacular API to fetch recipes. Saving to local storage daily to avoid unnecessary API calls.
 
-  let allRecipes = [];
-
-  try {
-    for (let i = 0; i < totalCalls; i++) {
-      const from = i * resultsPerCall;
-      const to = from + resultsPerCall;
-
-      const response = await axios.get('https://api.edamam.com/api/recipes/v2', {
-        params: {
-          type: 'public',
-          app_id: appId,
-          app_key: appKey,
-          calories: caloriesRange,
-          from: from,
-          to: to,
-        },
-      });
-
-      if (response.data.hits && response.data.hits.length > 0) {
-        allRecipes = allRecipes.concat(response.data.hits.map(hit => hit.recipe));
-      }
-    }
-
-
-    const selectedMeals = filterRecipes(allRecipes);
-    return selectedMeals;
-
-  } catch (error) {
-    console.error('Error fetching recipes:', error);
-    return null;
-  }
+const getCachedData = () => {
+  const key = getCacheKey();
+  const cached = localStorage.getItem(key);
+  return cached ? JSON.parse(cached) : null;
 };
 
-// Helper function to filter recipes by meal type and protein content
-const filterRecipes = (recipes) => {
+const setCachedData = (data) => {
+  const key = getCacheKey();
+  localStorage.setItem(key, JSON.stringify(data));
+}
+
+const getCacheKey = () => {
+  const today = new Date().toISOString().split('T')[0]; //YYYY-MM-DD
+  return `mealPlan_${today}`;
+}
+
+export const getMealPlan = async (caloriesPerDay) => {
+  const cachedRecipes = getCachedData();
+  if (cachedRecipes) {
+    return cachedRecipes;
+  };
+
+  const apiKey = import.meta.env.VITE_SPOONACULAR_KEY; 
+  const url = 'https://api.spoonacular.com/recipes/complexSearch';
+
+  const caloriesPerMeal = (caloriesPerDay / 3);
+  const minCalories = caloriesPerMeal - 50;
+  const maxCalories = caloriesPerMeal + 50;
+
   const meals = {
-    breakfast: [],
-    lunchAndDinner: [],
-  };
-
-  recipes.forEach(recipe => {
-    const protein = recipe.totalNutrients.PROCNT ? recipe.totalNutrients.PROCNT.quantity : 0;
-
-    if (recipe.mealType.includes("lunch/dinner")) {
-      if (protein >= 15) {
-        meals.lunchAndDinner.push(recipe);
-      }
-    } else if (recipe.mealType.includes('breakfast')) {
-      meals.breakfast.push(recipe);
-    }
-  });
-
-  const selectedMeals = {
-    breakfast: meals.breakfast.length > 0 ? meals.breakfast[Math.floor(Math.random() * meals.breakfast.length)] : null,
-  };
-
-  if (meals.lunchAndDinner.length > 1) {
-    // Ensure lunch and dinner are different meals
-    const lunchIndex = Math.floor(Math.random() * meals.lunchAndDinner.length);
-    let dinnerIndex;
-
-    do {
-      dinnerIndex = Math.floor(Math.random() * meals.lunchAndDinner.length);
-    } while (dinnerIndex === lunchIndex);
-
-    selectedMeals.lunch = meals.lunchAndDinner[lunchIndex];
-    selectedMeals.dinner = meals.lunchAndDinner[dinnerIndex];
+    breakfast: null,
+    lunch: null,
+    dinner: null
   }
 
-  return Object.values(selectedMeals).filter(meal => meal !== null);
+  //Breakfast
+  try {
+    const response = await axios.get(url, {
+      params: {
+        apiKey: apiKey,
+        minCalories: minCalories,
+        maxCalories: maxCalories,
+        number: 1, 
+        minProtein: 10,
+        minCarbs: 1,
+        minFat: 1, 
+        type:"breakfast",
+      },
+    });
+
+    const result = await response.data.results;
+    meals.breakfast = result[0];
+  } catch (error) {
+    console.error('Error fetching breakfast:', error);
+  }
+
+  //Lunch and Dinner
+  try {
+    const response = await axios.get(url, {
+      params: {
+        apiKey: apiKey,
+        minCalories: minCalories,
+        maxCalories: maxCalories,
+        number: 2,
+        minProtein: 15,
+        minCarbs: 1,
+        minFat: 1, 
+        type:"lunch, dinner",
+      },
+    });
+
+    const results = await response.data.results;
+    meals.lunch = results[0];
+    meals.dinner = results[1];
+  } catch (error) {
+    console.error('Error fetching lunch/dinner:', error);
+  }
+
+  setCachedData(meals);
+
+  return meals;
+
 };

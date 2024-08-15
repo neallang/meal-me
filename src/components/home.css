@@ -34,3 +34,7 @@
 #home .meal-buttons button:hover {
     cursor: pointer;
 }
+
+#home .active-button {
+    background-color: #4CAF50;
+}

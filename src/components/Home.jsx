@@ -102,9 +102,21 @@ const Home = () => {
       <p>Daily caloric need: {caloriesPerDay}</p>
 
       <div className="meal-buttons">
-        <button onClick={() => handleRecipeChange('breakfast')}>Breakfast</button>
-        <button onClick={() => handleRecipeChange('lunch')}>Lunch</button>
-        <button onClick={() => handleRecipeChange('dinner')}>Dinner</button>
+        <button 
+          className={currentMeal === 'Breakfast' ? 'active-button' : ''}
+          onClick={() => handleRecipeChange('breakfast')}>
+          Breakfast
+        </button>
+        <button 
+          className={currentMeal === 'Lunch' ? 'active-button' : ''}
+          onClick={() => handleRecipeChange('lunch')}>
+            Lunch
+          </button>
+        <button 
+          className={currentMeal === 'Dinner' ? 'active-button' : ''}
+          onClick={() => handleRecipeChange('dinner')}>
+          Dinner
+        </button>
       </div>
 
       {currentRecipe && currentMeal && <Recipe recipe={currentRecipe} currentMeal={currentMeal}/>}

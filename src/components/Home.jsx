@@ -107,48 +107,68 @@ const Home = () => {
     return <Navigate to="/" />;
   }
 
+  console.log(settingsOpen);
 
 
-  return settingsOpen ? <Settings />: (
+
+  return (
     <div id="home">
-      <div className="top-row">
-        <img 
-          className="menu-icon" 
-          src="../menu.png" 
-          onClick={toggleSettings}
-        />
-        <h1>Recipes for {getFormattedDate()}</h1>
-        <button onClick={handleSignOut}>Sign Out</button>
-      </div>
-      <p>Daily caloric need: {caloriesPerDay}</p>
 
-      <div className="meal-buttons">
-        <button 
-          className={currentMeal === 'Breakfast' ? 'active-button' : ''}
-          onClick={() => handleRecipeChange('breakfast')}>
-          Breakfast
-        </button>
-        <button 
-          className={currentMeal === 'Lunch' ? 'active-button' : ''}
-          onClick={() => handleRecipeChange('lunch')}>
-            Lunch
+      {settingsOpen && (
+        <div className="sidebar">
+          <div className="sidebar-content">
+            <h2>Settings</h2>
+            <ul>
+              <li>Profile</li>
+              <li>Preferences</li>
+              <li>Notifications</li>
+              <li>Sign Out</li>
+            </ul>
+            <button onClick={toggleSettings}>Close</button>
+          </div>
+        </div>
+      )}
+        <div className="home-content">
+          <div className="top-row">
+          <img 
+            className="menu-icon" 
+            src="../menu.png" 
+            onClick={toggleSettings}
+          />
+          <h1>Recipes for {getFormattedDate()}</h1>
+          <button onClick={handleSignOut}>Sign Out</button>
+        </div>
+        <p>Daily caloric need: {caloriesPerDay}</p>
+
+        <div className="meal-buttons">
+          <button 
+            className={currentMeal === 'Breakfast' ? 'active-button' : ''}
+            onClick={() => handleRecipeChange('breakfast')}>
+            Breakfast
           </button>
-        <button 
-          className={currentMeal === 'Dinner' ? 'active-button' : ''}
-          onClick={() => handleRecipeChange('dinner')}>
-          Dinner
-        </button>
-      </div>
+          <button 
+            className={currentMeal === 'Lunch' ? 'active-button' : ''}
+            onClick={() => handleRecipeChange('lunch')}>
+              Lunch
+            </button>
+          <button 
+            className={currentMeal === 'Dinner' ? 'active-button' : ''}
+            onClick={() => handleRecipeChange('dinner')}>
+            Dinner
+          </button>
+        </div>
 
-      {currentRecipe && currentMeal && currentRecipeInfo &&  
-      <Recipe 
-        recipe={currentRecipe} 
-        currentMeal={currentMeal} 
-        recipeInfo={currentRecipeInfo}
-      />}
+        {currentRecipe && currentMeal && currentRecipeInfo &&  
+        <Recipe 
+          recipe={currentRecipe} 
+          currentMeal={currentMeal} 
+          recipeInfo={currentRecipeInfo}
+        />}
+
+      </div>
       
     </div>
-  )
+  );
 
 };
 

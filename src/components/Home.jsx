@@ -7,6 +7,7 @@ import { calculateCaloricNeeds } from "../utils/calories";
 import {getFormattedDate} from '../utils/date'
 import Recipe from "./Recipe";
 import { getMealPlan } from "../utils/fetchRecipes"; 
+import { getRecipeInfo } from "../utils/recipeInfo";
 import './home.css'
 
 const Home = () => {
@@ -16,8 +17,9 @@ const Home = () => {
   const [caloriesPerDay, setCaloriesPerDay] = useState(null);
   const [firstName, setFirstName] = useState(null);
   const [dailyRecipes, setDailyRecipes] = useState(null);
-  const [currentMeal, setCurrentMeal] = useState(null);
-  const [currentRecipe, setCurrentRecipe] = useState(null);
+  const [currentMeal, setCurrentMeal] = useState(null);     // Breakfast, Lunch, or Dinner
+  const [currentRecipe, setCurrentRecipe] = useState(null); // Recipe title, ID, some nutrients
+  const [currentRecipeInfo, setCurrentRecipeInfo] = useState(null); // All other recipe data (separate API)
 
     useEffect(() => {
         const user= auth.currentUser;
@@ -45,7 +47,6 @@ const Home = () => {
         if (caloriesPerDay) {
           // const calorieString = caloriesPerDay.toString();
           const recipes = await getMealPlan(userID, caloriesPerDay);
-          console.log(recipes);
           setDailyRecipes(recipes);
           setCurrentRecipe(recipes.breakfast);
           setCurrentMeal('Breakfast');
@@ -54,6 +55,19 @@ const Home = () => {
     
       fetchRecipeData();
     }, [caloriesPerDay]);
+
+      // Update the current recipe info whenever the current recipe changes
+  useEffect(() => {
+    if (currentRecipe) {
+      const fetchRecipeInfo = async () => {
+        const recipeInfo = await getRecipeInfo(userID, currentRecipe.id);
+        setCurrentRecipeInfo(recipeInfo);
+        // console.log(recipeInfo);
+      };
+
+      fetchRecipeInfo();
+    };
+  }, [currentRecipe]);
 
 
 
@@ -87,9 +101,6 @@ const Home = () => {
     return <Navigate to="/" />;
   }
 
-  // if (currentRecipe) {
-  // console.log("Current Recipe: ", currentRecipe)
-  // }
 
 
   return (
@@ -119,7 +130,12 @@ const Home = () => {
         </button>
       </div>
 
-      {currentRecipe && currentMeal && <Recipe recipe={currentRecipe} currentMeal={currentMeal}/>}
+      {currentRecipe && currentMeal && currentRecipeInfo &&  
+      <Recipe 
+        recipe={currentRecipe} 
+        currentMeal={currentMeal} 
+        recipeInfo={currentRecipeInfo}
+      />}
       
     </div>
   );

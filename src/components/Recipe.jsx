@@ -1,6 +1,7 @@
 import './recipe.css'
+import { getCookTime } from '../utils/cookTime';
 
-const Recipe = ({recipe, currentMeal}) => {
+const Recipe = ({recipe, currentMeal, recipeInfo }) => {
 
     if (!recipe) {
         return <div id="recipe">Loading...</div>;
@@ -10,6 +11,27 @@ const Recipe = ({recipe, currentMeal}) => {
     const protein = recipe.nutrition?.nutrients?.[1]?.amount ? Math.round(recipe.nutrition.nutrients[1].amount) : 0;
     const fat = recipe.nutrition?.nutrients?.[2]?.amount ? Math.round(recipe.nutrition.nutrients[2].amount) : 0;
     const carbs = recipe.nutrition?.nutrients?.[3]?.amount ? Math.round(recipe.nutrition.nutrients[3].amount) : 0;
+    const url = recipeInfo.sourceUrl;
+    const prepMinutes = recipeInfo.preperationMinutes ? recipeInfo.preperationMinutes : 0;
+    const readyInMinutes = recipeInfo.readyInMinutes;
+
+    console.log(recipeInfo);
+
+    const getTotalTime = (prepMins, readyMins) => {
+        const totalMinutes = prepMins + readyMins;
+        const cookTime = getCookTime(totalMinutes);
+       
+        if (cookTime[0] === 0) {
+            return `${cookTime[1]} minutes`
+        }
+        else if (cookTime[0] === 1) {
+            return `${cookTime[0]} hour and ${cookTime[1]} minutes`
+        }
+        return `${cookTime[0]} hours and ${cookTime[1]} minutes`
+
+    }
+
+    const totalTime = getTotalTime(prepMinutes, readyInMinutes);
 
 
 
@@ -26,7 +48,8 @@ const Recipe = ({recipe, currentMeal}) => {
                 </div>
                 <img src={recipe.image}/>
             </div>
-             <a target='_blank'>View Full Recipe</a> 
+            <p>Prep and cook time: {totalTime}</p>
+             <a href={url} target='_blank'>View Full Recipe</a> 
         </div>
     )
 

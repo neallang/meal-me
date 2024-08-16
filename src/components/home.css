@@ -12,6 +12,10 @@
     align-items: center;
 }
 
+#home .menu-icon:hover {
+    cursor: pointer;
+}
+
 #home img {
     width: 20px;
     height: 20px;

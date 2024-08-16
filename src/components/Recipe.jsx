@@ -1,5 +1,6 @@
 import './recipe.css'
 import { getCookTime } from '../utils/cookTime';
+import { getKeyIngredients } from '../utils/keyIngredients';
 
 const Recipe = ({recipe, currentMeal, recipeInfo }) => {
 
@@ -11,11 +12,14 @@ const Recipe = ({recipe, currentMeal, recipeInfo }) => {
     const protein = recipe.nutrition?.nutrients?.[1]?.amount ? Math.round(recipe.nutrition.nutrients[1].amount) : 0;
     const fat = recipe.nutrition?.nutrients?.[2]?.amount ? Math.round(recipe.nutrition.nutrients[2].amount) : 0;
     const carbs = recipe.nutrition?.nutrients?.[3]?.amount ? Math.round(recipe.nutrition.nutrients[3].amount) : 0;
-    const url = recipeInfo.sourceUrl;
+    const url = recipeInfo.spoonacularSourceUrl;
     const prepMinutes = recipeInfo.preperationMinutes ? recipeInfo.preperationMinutes : 0;
     const readyInMinutes = recipeInfo.readyInMinutes;
+    const ingredients = recipeInfo.extendedIngredients;
+    const keyIngredients = getKeyIngredients(ingredients);
 
     console.log(recipeInfo);
+    
 
     const getTotalTime = (prepMins, readyMins) => {
         const totalMinutes = prepMins + readyMins;
@@ -49,6 +53,7 @@ const Recipe = ({recipe, currentMeal, recipeInfo }) => {
                 </div>
                 <img src={recipe.image}/>
             </div>
+            <p>{keyIngredients}</p>
              <a href={url} target='_blank'>View Full Recipe</a> 
         </div>
     )

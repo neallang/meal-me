@@ -44,7 +44,7 @@ const Home = () => {
       const fetchRecipeData = async () => {
         if (caloriesPerDay) {
           // const calorieString = caloriesPerDay.toString();
-          const recipes = await getMealPlan(caloriesPerDay);
+          const recipes = await getMealPlan(userID, caloriesPerDay);
           console.log(recipes);
           setDailyRecipes(recipes);
           setCurrentRecipe(recipes.breakfast);

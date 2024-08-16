@@ -39,6 +39,7 @@ const Recipe = ({recipe, currentMeal, recipeInfo }) => {
     return (
         <div id="recipe">
             <h1>{recipe.title}</h1>
+            <p>Prep and cook time: {totalTime}</p>
             <div className='recipe-details'>
                 <div className='nutrients'>
                     <p>Calories: {calories}</p>
@@ -48,7 +49,6 @@ const Recipe = ({recipe, currentMeal, recipeInfo }) => {
                 </div>
                 <img src={recipe.image}/>
             </div>
-            <p>Prep and cook time: {totalTime}</p>
              <a href={url} target='_blank'>View Full Recipe</a> 
         </div>
     )

@@ -6,6 +6,7 @@ import { auth } from "../firebase/firebase"
 import { calculateCaloricNeeds } from "../utils/calories";
 import {getFormattedDate} from '../utils/date'
 import Recipe from "./Recipe";
+import Settings from "./Settings";
 import { getMealPlan } from "../utils/fetchRecipes"; 
 import { getRecipeInfo } from "../utils/recipeInfo";
 import './home.css'
@@ -20,6 +21,7 @@ const Home = () => {
   const [currentMeal, setCurrentMeal] = useState(null);     // Breakfast, Lunch, or Dinner
   const [currentRecipe, setCurrentRecipe] = useState(null); // Recipe title, ID, some nutrients
   const [currentRecipeInfo, setCurrentRecipeInfo] = useState(null); // All other recipe data (separate API)
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
     useEffect(() => {
         const user= auth.currentUser;
@@ -69,6 +71,10 @@ const Home = () => {
     };
   }, [currentRecipe]);
 
+  const toggleSettings = () => {
+    setSettingsOpen(!settingsOpen);
+  }
+
 
 
   const handleSignOut = async () => {
@@ -103,10 +109,14 @@ const Home = () => {
 
 
 
-  return (
+  return settingsOpen ? <Settings />: (
     <div id="home">
       <div className="top-row">
-        <img className="menu-icon" src="../menu.png" />
+        <img 
+          className="menu-icon" 
+          src="../menu.png" 
+          onClick={toggleSettings}
+        />
         <h1>Recipes for {getFormattedDate()}</h1>
         <button onClick={handleSignOut}>Sign Out</button>
       </div>
@@ -138,7 +148,8 @@ const Home = () => {
       />}
       
     </div>
-  );
+  )
+
 };
 
 export default Home;

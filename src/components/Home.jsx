@@ -121,7 +121,7 @@ const Home = () => {
           <div className="top-row">
           <img 
             className="menu-icon" 
-            src="../menu.png" 
+            src="../menu-icon.png" 
             onClick={toggleSettings}
           />
           <h1>Recipes for {getFormattedDate()}</h1>

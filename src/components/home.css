@@ -17,8 +17,8 @@
 }
 
 #home img {
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
 }
 
 #home .meal-buttons {
@@ -40,5 +40,5 @@
 }
 
 #home .active-button {
-    background-color: #4CAF50;
+    background-color: #93d0d4;
 }

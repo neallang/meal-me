@@ -4,6 +4,7 @@ import ActivityForm from "./ActivityForm"
 import GoalForm from "./GoalForm";
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { auth } from '../../firebase/firebase';
+import { getFormData } from "../../firebase/auth";
 
 const Form = () => {
     const  [formData, setFormData] = useState({
@@ -20,10 +21,26 @@ const Form = () => {
     const [userID, setUserID] = useState(null);
 
     useEffect(() => {
-        const user= auth.currentUser;
-        if (user) {
-            setUserID(user.uid);
-        }
+        const fetchUserData = async () => {
+            const user= auth.currentUser;
+            if (user) {
+                setUserID(user.uid);
+                const data = await getFormData(user.uid);
+                if (data) {
+                    setFormData({
+                        firstName: data.firstName || '',
+                        age: data.age || 0,
+                        heightFt: data.heightFt || 0,
+                        heightIn: data.heightIn || 0,
+                        weight: data.weight || 0,
+                        sex: data.sex || '',
+                        activity: data.activity || '',
+                        goal: data.goal || '',
+                    })
+                }
+            }
+    }
+    fetchUserData();
     }, []);
 
 

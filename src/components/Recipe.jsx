@@ -46,14 +46,14 @@ const Recipe = ({recipe, currentMeal, recipeInfo }) => {
             <p>Prep and cook time: {totalTime}</p>
             <div className='recipe-details'>
                 <div className='nutrients'>
-                    <p>Calories: {calories}</p>
-                    <p>Protein: {protein}g</p>
-                    <p>Carbohydrates: {carbs}g</p>
-                    <p>Fat: {fat}g</p>
+                    <p><span style={{fontWeight: 'bold'}}>Calories: </span>{calories}</p>
+                    <p><span style={{fontWeight: 'bold'}}>Protein: </span> {protein}g</p>
+                    <p><span style={{fontWeight: 'bold'}}>Carbohydrates: </span> {carbs}g</p>
+                    <p><span style={{fontWeight: 'bold'}}>Fat: </span> {fat}g</p>
                 </div>
                 <img src={recipe.image}/>
             </div>
-            <p>{keyIngredients}</p>
+            <p><span style={{fontWeight: 'bold'}}>Key Ingredients:</span> {keyIngredients}</p>
              <a href={url} target='_blank'>View Full Recipe</a> 
         </div>
     )

@@ -44,7 +44,7 @@ export const getMealPlan = async (userID, caloriesPerDay) => {
         apiKey: apiKey,
         minCalories: minCalories,
         maxCalories: maxCalories,
-        number: 1, 
+        number: 10, 
         minProtein: 10,
         minCarbs: 1,
         minFat: 1, 
@@ -53,7 +53,8 @@ export const getMealPlan = async (userID, caloriesPerDay) => {
     });
 
     const result = await response.data.results;
-    meals.breakfast = result[0];
+    const randIdx =  Math.floor(Math.random() * result.length)
+    meals.breakfast = result[randIdx];
   } catch (error) {
     console.error('Error fetching breakfast:', error);
   }
@@ -65,7 +66,7 @@ export const getMealPlan = async (userID, caloriesPerDay) => {
         apiKey: apiKey,
         minCalories: minCalories,
         maxCalories: maxCalories,
-        number: 2,
+        number: 10,
         minProtein: 15,
         minCarbs: 1,
         minFat: 1, 
@@ -74,8 +75,10 @@ export const getMealPlan = async (userID, caloriesPerDay) => {
     });
 
     const results = await response.data.results;
-    meals.lunch = results[0];
-    meals.dinner = results[1];
+    const randIdx1 =  Math.floor(Math.random() * results.length);
+    const randIdx2 = (randIdx1 + 1) % 10;
+    meals.lunch = results[randIdx1];
+    meals.dinner = results[randIdx2];
   } catch (error) {
     console.error('Error fetching lunch/dinner:', error);
   }

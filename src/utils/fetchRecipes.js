@@ -2,24 +2,24 @@ import axios from 'axios';
 
 // Calling the spoonacular API to fetch recipes. Saving to local storage daily to avoid unnecessary API calls.
 
-const getCachedData = (userID) => {
-  const key = getCacheKey(userID);
+const getCachedData = (userID, calories) => {
+  const key = getCacheKey(userID, calories);
   const cached = localStorage.getItem(key);
   return cached ? JSON.parse(cached) : null;
 };
 
-const setCachedData = (userID, data) => {
-  const key = getCacheKey(userID);
+const setCachedData = (userID, data, calories) => {
+  const key = getCacheKey(userID, calories);
   localStorage.setItem(key, JSON.stringify(data));
 }
 
-const getCacheKey = (userID) => {
+const getCacheKey = (userID, calories) => {
   const today = new Date().toISOString().split('T')[0]; //YYYY-MM-DD
-  return `mealPlan_${userID}_${today}`;
+  return `mealPlan_${userID}_${today}_${calories}`;
 }
 
 export const getMealPlan = async (userID, caloriesPerDay) => {
-  const cachedRecipes = getCachedData(userID);
+  const cachedRecipes = getCachedData(userID, caloriesPerDay);
   if (cachedRecipes) {
     return cachedRecipes;
   };
@@ -80,7 +80,7 @@ export const getMealPlan = async (userID, caloriesPerDay) => {
     console.error('Error fetching lunch/dinner:', error);
   }
 
-  setCachedData(userID, meals);
+  setCachedData(userID, meals, caloriesPerDay);
 
   return meals;
 

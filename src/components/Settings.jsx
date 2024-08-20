@@ -7,10 +7,10 @@ const Settings = () => {
         <div className="sidebar-content">
           <h2>Settings</h2>
           <ul>
-            <li>Profile</li>
-            <li>Preferences</li>
-            <li>Notifications</li>
+            <li>Favorite Recipes</li>
+            <li>Update Information / Goals</li>
             <li>Sign Out</li>
+            <li>Delete Account</li>
           </ul>
         </div>
       </div>

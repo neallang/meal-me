@@ -3,12 +3,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    border: 2px solid #000; 
+    /* border: 2px solid #000;  */
     border-radius: 5px;
     width: 40%;
     margin: 40px auto; /* Center horizontally */
     padding-bottom: 20px;
-    background-color: rgb(202, 192, 211);
+    background-color: rgb(141, 141, 141);
+    color: black;
 }
 
 #sign-in .form-content {

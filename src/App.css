@@ -4,6 +4,9 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: rgb(227, 227, 231); 
+  background-image: url('../bg-gradient.png');
+  background-repeat: no-repeat;
+  background-size: cover;
   font-family: 'Inter', sans-serif; 
+  color: whitesmoke;
 }

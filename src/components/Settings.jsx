@@ -1,16 +1,16 @@
 import './settings.css';
 
 
-const Settings = () => {
+const Settings = ({handleSignOut, deleteAccount, userID}) => {
     return (
         <div id="settings">
         <div className="sidebar-content">
           <h2>Settings</h2>
           <ul>
-            <li> <a href="/form/informationForm">Favorite Recipes</a></li>
-            <li>Update Information / Goals</li>
-            <li>Sign Out</li>
-            <li>Delete Account</li>
+            <li>Favorite Recipes</li>
+            <li><a href="/form/informationForm">Update Information / Goals</a></li>
+            <li onClick={handleSignOut}>Sign Out</li>
+            <li onClick={() => deleteAccount(userID)}>Delete Account</li>
           </ul>
         </div>
       </div>

@@ -6,9 +6,10 @@ import {
     signInWithPopup,
     updatePassword,
     GoogleAuthProvider,
+    deleteUser
   } from "firebase/auth";
   import { auth, db } from "./firebase";
-  import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+  import { doc, setDoc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
   
   export const doCreateUserWithEmailAndPassword = async (email, password) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -34,6 +35,26 @@ import {
   export const doSignOut = () => {
     return auth.signOut();
   };
+
+  export const doDeleteAccount = async (userID) => {
+    const user = auth.currentUser;
+    console.log(user);
+    console.log(userID);
+    if (user && userID) {
+        try {
+            // Delete user data from Firestore
+            await deleteDoc(doc(db, "users", userID));
+
+            // Delete user from Firebase Authentication
+            await deleteUser(user);
+
+            alert("Your account has been deleted.");
+        } catch (error) {
+            console.error("Error deleting account:", error);
+            alert("There was an error deleting your account. Please try again.");
+        }
+    }
+};
   
   export const doPasswordReset = (email) => {
     return sendPasswordResetEmail(auth, email);

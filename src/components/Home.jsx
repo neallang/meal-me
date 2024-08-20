@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { doSignOut, getFormData } from "../firebase/auth";
+import { doSignOut, getFormData, doDeleteAccount } from "../firebase/auth";
 import { useAuth } from "../contexts/authContext";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase/firebase"
@@ -104,7 +104,7 @@ const Home = () => {
   };
 
   if (!userLoggedIn) {
-    return <Navigate to="/" />;
+    navigate('/');
   }
 
   console.log(settingsOpen);
@@ -115,7 +115,11 @@ const Home = () => {
     <div id="home">
 
       {settingsOpen && (
-        <Settings/>
+        <Settings 
+          handleSignOut={handleSignOut}
+          deleteAccount={doDeleteAccount}
+          userID={userID}
+        />
       )}
         <div className="home-content">
           <div className="top-row">

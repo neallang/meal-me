@@ -28,8 +28,11 @@ export const getMealPlan = async (userID, caloriesPerDay) => {
   const url = 'https://api.spoonacular.com/recipes/complexSearch';
 
   const caloriesPerMeal = (caloriesPerDay / 3);
-  const minCalories = caloriesPerMeal - 50;
-  const maxCalories = caloriesPerMeal + 50;
+  const minCaloriesBreakfast = caloriesPerMeal - 200;
+  const maxCaloriesBreakfast = caloriesPerMeal + 50;
+
+  const minCaloriesLunchDinner = caloriesPerMeal - 50;
+  const maxCaloriesLunchDinner = caloriesPerMeal + 150;
 
   const meals = {
     breakfast: null,
@@ -42,8 +45,8 @@ export const getMealPlan = async (userID, caloriesPerDay) => {
     const response = await axios.get(url, {
       params: {
         apiKey: apiKey,
-        minCalories: minCalories,
-        maxCalories: maxCalories,
+        minCalories: minCaloriesBreakfast,
+        maxCalories: maxCaloriesBreakfast,
         number: 10, 
         minProtein: 10,
         minCarbs: 1,
@@ -64,8 +67,8 @@ export const getMealPlan = async (userID, caloriesPerDay) => {
     const response = await axios.get(url, {
       params: {
         apiKey: apiKey,
-        minCalories: minCalories,
-        maxCalories: maxCalories,
+        minCalories: minCaloriesLunchDinner,
+        maxCalories: maxCaloriesLunchDinner,
         number: 10,
         minProtein: 15,
         minCarbs: 1,

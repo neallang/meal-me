@@ -78,9 +78,21 @@ const Home = () => {
 
 
   const handleSignOut = async () => {
-    await doSignOut();
-    navigate("/", { replace: true });
+    const confirmSignout = window.confirm("Are you sure you want to sign out?");
+
+    if (confirmSignout){
+      await doSignOut();
+      navigate("/", { replace: true });
+    }
   };
+
+  const handleDeleteAccount = async (uID) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
+
+    if (confirmDelete) {
+      await doDeleteAccount(uID);
+    }
+  }
 
   const handleRecipeChange = (mealType) => {
     if (dailyRecipes) {
@@ -117,7 +129,7 @@ const Home = () => {
       {settingsOpen && (
         <Settings 
           handleSignOut={handleSignOut}
-          deleteAccount={doDeleteAccount}
+          deleteAccount={handleDeleteAccount}
           userID={userID}
         />
       )}

@@ -8,6 +8,7 @@
     width: 40%;
     margin: 40px auto; /* Center horizontally */
     padding-bottom: 20px;
+    background-color: rgb(202, 192, 211);
 }
 
 #sign-in .form-content {

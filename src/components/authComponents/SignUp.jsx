@@ -27,7 +27,7 @@ const SignUp = ({ toggleAuthMode }) => {
 
   return (
     <div id="sign-in">
-      <h1>Sign Up</h1>
+      <h2>Sign Up</h2>
       {errorMessage && <p>{errorMessage}</p>}
       <form className="form-content" onSubmit={onSubmit}>
         <div className="form-el">

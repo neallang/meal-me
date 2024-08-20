@@ -115,18 +115,7 @@ const Home = () => {
     <div id="home">
 
       {settingsOpen && (
-        <div className="sidebar">
-          <div className="sidebar-content">
-            <h2>Settings</h2>
-            <ul>
-              <li>Profile</li>
-              <li>Preferences</li>
-              <li>Notifications</li>
-              <li>Sign Out</li>
-            </ul>
-            <button onClick={toggleSettings}>Close</button>
-          </div>
-        </div>
+        <Settings/>
       )}
         <div className="home-content">
           <div className="top-row">

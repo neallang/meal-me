@@ -18,7 +18,7 @@ const Recipe = ({recipe, currentMeal, recipeInfo }) => {
     const ingredients = recipeInfo.extendedIngredients;
     const keyIngredients = getKeyIngredients(ingredients);
 
-    console.log(recipeInfo);
+    // console.log(recipeInfo);
     
 
     const getTotalTime = (prepMins, readyMins) => {

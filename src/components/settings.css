@@ -25,16 +25,10 @@
     padding: 10px 0;
     cursor: pointer;
   }
-  
-  #settings .sidebar-content button {
-    margin-top: 20px;
-    padding: 10px 15px;
-    background-color: #444;
-    border: none;
+
+  #settings a {
+    text-decoration: none;
     color: white;
-    cursor: pointer;
   }
+
   
-  #settings .sidebar-content button:hover {
-    background-color: #555;
-  }

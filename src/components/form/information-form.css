@@ -45,3 +45,9 @@
     align-items: center;
     gap: 2px;
 }
+
+#information-form button {
+    padding: 6px 12px; 
+    font-size: 13px; 
+    cursor: pointer;
+}

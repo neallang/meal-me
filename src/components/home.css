@@ -12,6 +12,12 @@
     align-items: center;
 }
 
+#home .top-row button {
+    padding: 6px 12px; 
+    font-size: 13px; 
+    cursor: pointer;
+}
+
 #home .menu-icon:hover {
     cursor: pointer;
 }

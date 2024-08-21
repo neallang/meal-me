@@ -9,7 +9,7 @@ import Recipe from "./Recipe";
 import Settings from "./Settings";
 import { getMealPlan } from "../utils/fetchRecipes"; 
 import { getRecipeInfo } from "../utils/recipeInfo";
-import { getFavoritesFromLocalStorage, setFavoritesToLocalStorage } from "../utils/favorites";
+import { getFavoritesFromLocalStorage, setFavoritesToLocalStorage, getFavoritesInfoFromLocalStorage, setFavoritesInfoToLocalStorage } from "../utils/favorites";
 import './home.css'
 
 const Home = () => {
@@ -24,6 +24,7 @@ const Home = () => {
   const [currentRecipeInfo, setCurrentRecipeInfo] = useState(null); // All other recipe data (separate API)
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [favorites, setFavorites] = useState([]);
+  const [favoritesInfo, setFavoritesInfo] = useState([]);
 
     useEffect(() => {
         const user= auth.currentUser;
@@ -31,8 +32,9 @@ const Home = () => {
             setUserID(user.uid);
 
             const loadedFavorites = getFavoritesFromLocalStorage(user.uid);
-            console.log(loadedFavorites);
+            const loadedFavoritesInfo = getFavoritesInfoFromLocalStorage(user.uid);
             setFavorites(loadedFavorites);
+            setFavoritesInfo(loadedFavoritesInfo);
         }
     }, []);
 
@@ -141,9 +143,34 @@ const Home = () => {
     return favorites.some(fav => fav.id === recipe.id);
   };
 
+  const toggleFavoriteInfo = (recipeInfo) => {
+    setFavoritesInfo((prevFavoritesInfo) => {
+      let updatedFavoritesInfo;
+      
+      if (prevFavoritesInfo.some(info => info.id === recipeInfo.id)) {
+        updatedFavoritesInfo = prevFavoritesInfo.filter(info => info.id !== recipeInfo.id);
+      } else {
+        updatedFavoritesInfo = [...prevFavoritesInfo, recipeInfo];
+      }
+  
+      setFavoritesInfoToLocalStorage(userID, updatedFavoritesInfo);
+      
+      return updatedFavoritesInfo;
+    });
+  };
+
+  const handleFavoriteToggle = (recipe, recipeInfo) => {
+    toggleFavorite(recipe);
+    toggleFavoriteInfo(recipeInfo);
+  }
+
   if (!userLoggedIn) {
     navigate('/');
   }
+
+
+  // console.log(favorites);
+  // console.log(favoritesInfo);
 
 
 
@@ -193,7 +220,7 @@ const Home = () => {
           recipe={currentRecipe} 
           currentMeal={currentMeal} 
           recipeInfo={currentRecipeInfo}
-          toggleFavorite={toggleFavorite}
+          handleFavoriteToggle={handleFavoriteToggle}
           isFavorite={isFavorite(currentRecipe)}
         />}
 

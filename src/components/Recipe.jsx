@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 
-const Recipe = ({recipe, currentMeal, recipeInfo, toggleFavorite, isFavorite }) => {
+const Recipe = ({recipe, currentMeal, recipeInfo, handleFavoriteToggle, isFavorite }) => {
 
     if (!recipe) {
         return <div id="recipe">Loading...</div>;
@@ -46,7 +46,7 @@ const Recipe = ({recipe, currentMeal, recipeInfo, toggleFavorite, isFavorite }) 
     return (
         <div id="recipe">
             <h1>{recipe.title}</h1>
-            <button className="favorite-button" onClick={() => toggleFavorite(recipe)}>
+            <button className="favorite-button" onClick={() => handleFavoriteToggle(recipe, recipeInfo)}>
                     <FontAwesomeIcon 
                         icon={isFavorite ? solidHeart : regularHeart} 
                         className="favorite-icon" 

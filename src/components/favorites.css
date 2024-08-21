@@ -1,6 +1,22 @@
 #favorites {
     display: flex;
     flex-direction: column;
-    align-items: center;
     text-align: center;
+    padding: 20px;
 }
+
+#favorites .favorites-list {
+    padding-left: 35%;
+    width: 100%;
+}
+
+#favorites button {
+    width: auto; 
+    padding: 8px 16px; 
+    align-self: center;
+    white-space: nowrap; 
+    text-align: center; 
+    font-size: 13px; 
+    cursor: pointer;
+}
+

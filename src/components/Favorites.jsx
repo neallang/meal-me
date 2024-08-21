@@ -30,7 +30,7 @@ const Favorites = () => {
 
     if (favorites.length === 0 || favoritesInfo.length === 0) {
         return (
-        <div style={{ textAlign:'center'}}>
+        <div id="favorites">
             <h2>No favorite recipes found.</h2>
             <button onClick={handleGoHome}>Back to Home</button>
         </div>
@@ -81,14 +81,17 @@ const Favorites = () => {
     return (
         <div id="favorites">
             <h1>Your Favorite Recipes</h1>
+            <button onClick={handleGoHome}>Back to Home</button>
             <div className="favorites-list">
                 {favorites.map((recipe, index) => (
-                    <Recipe 
-                        recipe={recipe}
-                        recipeInfo={favoritesInfo.find(info => info.id === recipe.id)}
-                        handleFavoriteToggle={handleFavoriteToggle}
-                        isFavorite={isFavorite} 
-                    />
+                    <div key={index} className="recipe-card">
+                        <Recipe 
+                            recipe={recipe}
+                            recipeInfo={favoritesInfo.find(info => info.id === recipe.id)}
+                            handleFavoriteToggle={handleFavoriteToggle}
+                            isFavorite={isFavorite} 
+                        />
+                    </div>
                 ))}
             </div>
         </div>

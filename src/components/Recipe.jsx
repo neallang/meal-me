@@ -1,6 +1,9 @@
 import './recipe.css'
 import { getCookTime } from '../utils/cookTime';
 import { getKeyIngredients } from '../utils/keyIngredients';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 
 const Recipe = ({recipe, currentMeal, recipeInfo, toggleFavorite, isFavorite }) => {
 
@@ -43,9 +46,12 @@ const Recipe = ({recipe, currentMeal, recipeInfo, toggleFavorite, isFavorite }) 
     return (
         <div id="recipe">
             <h1>{recipe.title}</h1>
-            <button onClick={() => toggleFavorite(recipe)}>
-                {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
-            </button>
+            <button className="favorite-button" onClick={() => toggleFavorite(recipe)}>
+                    <FontAwesomeIcon 
+                        icon={isFavorite ? solidHeart : regularHeart} 
+                        className="favorite-icon" 
+                    />
+                </button>
             <p>Prep and cook time: {totalTime}</p>
             <div className='recipe-details'>
                 <div className='nutrients'>

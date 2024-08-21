@@ -7,7 +7,7 @@ const Settings = ({handleSignOut, deleteAccount, userID}) => {
         <div className="sidebar-content">
           <h2>Settings</h2>
           <ul>
-            <li>Favorite Recipes</li>
+            <li><a href="/favorites">Favorite Recipes</a></li>
             <li><a href="/form/informationForm">Update Information / Goals</a></li>
             <li onClick={handleSignOut}>Sign Out</li>
             <li onClick={() => deleteAccount(userID)}>Delete Account</li>

@@ -218,7 +218,6 @@ const Home = () => {
         {currentRecipe && currentMeal && currentRecipeInfo &&  
         <Recipe 
           recipe={currentRecipe} 
-          currentMeal={currentMeal} 
           recipeInfo={currentRecipeInfo}
           handleFavoriteToggle={handleFavoriteToggle}
           isFavorite={isFavorite(currentRecipe)}

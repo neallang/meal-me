@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import Form from "./components/form/Form";
 import InformationForm from "./components/form/InformationForm";
 import ActivityForm from "./components/form/ActivityForm"
+import Favorites from "./components/Favorites";
 import GoalForm from "./components/form/GoalForm";
 import { AuthProvider } from "./contexts/authContext";
 import Landing from "./components/Landing";
@@ -17,6 +18,7 @@ const App = () => {
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/form/*" element={<Form />} />
+          <Route path="/favorites" element={<Favorites />} />
           <Route path="/" element={<Landing/>} />
         </Routes>
       </AuthProvider>

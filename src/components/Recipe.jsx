@@ -2,7 +2,7 @@ import './recipe.css'
 import { getCookTime } from '../utils/cookTime';
 import { getKeyIngredients } from '../utils/keyIngredients';
 
-const Recipe = ({recipe, currentMeal, recipeInfo }) => {
+const Recipe = ({recipe, currentMeal, recipeInfo, toggleFavorite, isFavorite }) => {
 
     if (!recipe) {
         return <div id="recipe">Loading...</div>;
@@ -43,6 +43,9 @@ const Recipe = ({recipe, currentMeal, recipeInfo }) => {
     return (
         <div id="recipe">
             <h1>{recipe.title}</h1>
+            <button onClick={() => toggleFavorite(recipe)}>
+                {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
+            </button>
             <p>Prep and cook time: {totalTime}</p>
             <div className='recipe-details'>
                 <div className='nutrients'>

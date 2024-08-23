@@ -14,4 +14,4 @@ Meal Me is a web application designed to help users generate daily meal plans ba
 
 ## Demo
 
-Check out the live version of the app [here](#https://deploy-branch--meal-me-web.netlify.app/).
+Check out the live version of the app [here](https://deploy-branch--meal-me-web.netlify.app/).
